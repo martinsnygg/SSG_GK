@@ -44,8 +44,8 @@
         }).addTo(map);
       });
 
-    // Visa endast leden (LineString)
-    fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/S%C3%96S_GK_Barmark2.geojson')
+    // Visa endast leden (LineString) – ändra filnamnet nedan om du döpt om filen!
+    fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/SSG_GK_Barmark.geojson')
       .then(res => res.json())
       .then(geojsonData => {
         L.geoJSON(geojsonData, {
