@@ -5,7 +5,7 @@
     {
       "type": "Feature",
       "properties": {
-        "ele": 224m,
+        "ele": 224,
         "time": "2025-07-01T07:52:43.831Z",
         "magvar": null,
         "geoidheight": null,
@@ -14,12 +14,12 @@
         "desc": "Örebro kommun, Örebro län, Sverige",
         "icon": "https://github.com/martinsnygg/SSG_GK/blob/main/Tent_4.png"
       },
-      "geometry": {"type": "Point", "coordinates": [ 14.9099579, 59.3256342, 0.0 ] } }, }
+      "geometry": {"type": "Point", "coordinates": [ 14.9099579, 59.3256342, 0.0 ] }
     },
     {
       "type": "Feature",
       "properties": {
-        "ele": 239m,
+        "ele": 239,
         "time": "2025-07-02T07:51:08.813Z",
         "magvar": null,
         "geoidheight": null,
@@ -28,7 +28,7 @@
         "desc": "Örebro kommun, Örebro län, Sverige",
         "icon": "https://github.com/martinsnygg/SSG_GK/blob/main/Tent_4.png"
       },
-      "geometry": {"type": "Point", "coordinates": [ 14.8942125, 59.3124399, 0.0 ] } } }
+      "geometry": {"type": "Point", "coordinates": [ 14.8942125, 59.3124399, 0.0 ] }
     }
   ]
 }
