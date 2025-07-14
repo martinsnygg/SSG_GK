@@ -13,8 +13,8 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Ladda GeoJSON (ändra sökväg vid behov, eller använd direktlänk till raw GitHub)
-    fetch('Bivvy.geojson')
+    // Ladda GeoJSON från GitHub raw
+    fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Bivvy.geojson')
       .then(res => res.json())
       .then(geojsonData => {
         const map = L.map('map').setView([59.32, 14.90], 11);
@@ -29,7 +29,7 @@
               return L.marker(latlng, {
                 icon: L.icon({
                   iconUrl: feature.properties.icon,
-                  iconSize: [32, 32],      // ändra storlek vid behov
+                  iconSize: [32, 32],
                   iconAnchor: [16, 32]
                 })
               });
