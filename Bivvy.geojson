@@ -14,7 +14,7 @@
         "desc": "Örebro kommun, Örebro län, Sverige",
         "icon": "Tent_4.png"
       },
-      "geometry": { ... }
+      "geometry": {"type": "Point", "coordinates": [ 14.9099579, 59.3256342, 0.0 ] } }, }
     },
     {
       "type": "Feature",
@@ -28,7 +28,7 @@
         "desc": "Örebro kommun, Örebro län, Sverige",
         "icon": "Tent_4.png"
       },
-      "geometry": { ... }
+      "geometry": {"type": "Point", "coordinates": [ 14.8942125, 59.3124399, 0.0 ] } } }
     }
   ]
 }
