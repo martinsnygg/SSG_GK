@@ -13,7 +13,7 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Initiera karta
+    // JavaScriptet här!
     const map = L.map('map').setView([59.32, 14.90], 11);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -45,48 +45,38 @@
         }).addTo(map);
       });
 
-    // 2. Visa led (LineString) i SÖS_GK_Barmark2.geojson
+    // 2. Visa led och automatiska start/stopp-markörer
     fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/S%C3%96S_GK_Barmark2.geojson')
       .then(res => res.json())
       .then(geojsonData => {
-        // Lägg till linjer (etapper)
+        // Rita linjer
         L.geoJSON(geojsonData, {
-          filter: function(feature) {
-            return feature.geometry.type === "LineString";
-          },
-          style: function(feature) {
-            // Anpassa färg/tjocklek om du vill särskilja etapper
-            return { color: "#2196F3", weight: 5 };
-          }
+          filter: feature => feature.geometry.type === "LineString",
+          style: { color: "#2196F3", weight: 5 }
         }).addTo(map);
 
-        // Lägg till start/stopp-markörer för etapper
-        L.geoJSON(geojsonData, {
-          filter: function(feature) {
-            return feature.geometry.type === "Point" &&
-                   feature.properties && (feature.properties.etapp_typ === "start" || feature.properties.etapp_typ === "stopp");
-          },
-          pointToLayer: function(feature, latlng) {
-            let iconUrl = "";
-            if (feature.properties.etapp_typ === "start") {
-              iconUrl = "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Start Of Route_4.png";
-            } else if (feature.properties.etapp_typ === "stopp") {
-              iconUrl = "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/End Of Route_4.png";
-            }
-            return L.marker(latlng, {
+        // Lägg till start och stopp för varje etapp
+        geojsonData.features.forEach(feature => {
+          if (feature.geometry.type === "LineString") {
+            const coords = feature.geometry.coordinates;
+            // Startpunkt
+            L.marker([coords[0][1], coords[0][0]], {
               icon: L.icon({
-                iconUrl: iconUrl,
+                iconUrl: "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Start%20Of%20Route_4.png",
                 iconSize: [32, 32],
                 iconAnchor: [16, 32]
               })
-            });
-          },
-          onEachFeature: function(feature, layer) {
-            if (feature.properties && feature.properties.name) {
-              layer.bindPopup(feature.properties.name);
-            }
+            }).addTo(map);
+            // Stoppunkt
+            L.marker([coords[coords.length - 1][1], coords[coords.length - 1][0]], {
+              icon: L.icon({
+                iconUrl: "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/End%20Of%20Route_4.png",
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            }).addTo(map);
           }
-        }).addTo(map);
+        });
       });
   </script>
 </body>
