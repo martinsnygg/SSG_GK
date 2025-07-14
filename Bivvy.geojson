@@ -12,7 +12,7 @@
         "name": "Natt 1",
         "cmt": null,
         "desc": "Örebro kommun, Örebro län, Sverige",
-        "icon": "https://github.com/martinsnygg/SSG_GK/blob/main/Tent_4.png"
+        "icon": "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Tent_4.png"
       },
       "geometry": {"type": "Point", "coordinates": [ 14.9099579, 59.3256342, 0.0 ] }
     },
@@ -26,7 +26,7 @@
         "name": "Natt 2 & 3",
         "cmt": null,
         "desc": "Örebro kommun, Örebro län, Sverige",
-        "icon": "https://github.com/martinsnygg/SSG_GK/blob/main/Tent_4.png"
+        "icon": "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Tent_4.png"
       },
       "geometry": {"type": "Point", "coordinates": [ 14.8942125, 59.3124399, 0.0 ] }
     }
