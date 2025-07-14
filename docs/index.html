@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8" />
-  <title>Karta med bivvy, led och etappikoner</title>
+  <title>Karta med led och start/slut-markörer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <style>
@@ -13,53 +13,28 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // JavaScriptet här!
     const map = L.map('map').setView([59.32, 14.90], 11);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // 1. Visa Bivvy-punkter med tent-ikon
-    fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Bivvy.geojson')
-      .then(res => res.json())
-      .then(geojsonData => {
-        L.geoJSON(geojsonData, {
-          pointToLayer: function(feature, latlng) {
-            if (feature.properties && feature.properties.icon) {
-              return L.marker(latlng, {
-                icon: L.icon({
-                  iconUrl: feature.properties.icon,
-                  iconSize: [32, 32],
-                  iconAnchor: [16, 32]
-                })
-              });
-            }
-            return L.marker(latlng);
-          },
-          onEachFeature: function(feature, layer) {
-            if (feature.properties && feature.properties.name) {
-              layer.bindPopup(feature.properties.name);
-            }
-          }
-        }).addTo(map);
-      });
-
-    // 2. Visa led och automatiska start/stopp-markörer
+    // Ladda och rita leden + markörer
     fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/S%C3%96S_GK_Barmark2.geojson')
       .then(res => res.json())
       .then(geojsonData => {
-        // Rita linjer
+        // Rita linjer (alla etapper)
         L.geoJSON(geojsonData, {
           filter: feature => feature.geometry.type === "LineString",
           style: { color: "#2196F3", weight: 5 }
         }).addTo(map);
 
-        // Lägg till start och stopp för varje etapp
+        // Sätt ut start/slut för varje etapp
         geojsonData.features.forEach(feature => {
           if (feature.geometry.type === "LineString") {
             const coords = feature.geometry.coordinates;
-            // Startpunkt
+            // Leaflet vill ha [lat, lng] och GeoJSON har [lng, lat]
+            // START
             L.marker([coords[0][1], coords[0][0]], {
               icon: L.icon({
                 iconUrl: "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Start%20Of%20Route_4.png",
@@ -67,7 +42,7 @@
                 iconAnchor: [16, 32]
               })
             }).addTo(map);
-            // Stoppunkt
+            // SLUT
             L.marker([coords[coords.length - 1][1], coords[coords.length - 1][0]], {
               icon: L.icon({
                 iconUrl: "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/End%20Of%20Route_4.png",
