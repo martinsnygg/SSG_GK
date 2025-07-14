@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Bivvy",
+"features": [
+{ "type": "Feature", "properties": { "ele": null, "time": "2025-07-14T07:52:43.831Z", "magvar": null, "geoidheight": null, "name": "Natt 1", "cmt": null, "desc": "Örebro kommun, Örebro län, Sverige", "src": null, "link1_href": null, "link1_text": null, "link1_type": null, "link2_href": null, "link2_text": null, "link2_type": null, "sym": null, "type": "15", "fix": null, "sat": null, "hdop": null, "vdop": null, "pdop": null, "ageofdgpsdata": null, "dgpsid": null }, "geometry": { "type": "Point", "coordinates": [ 14.9099579, 59.3256342, 0.0 ] } },
+{ "type": "Feature", "properties": { "ele": null, "time": "2025-07-14T07:51:08.813Z", "magvar": null, "geoidheight": null, "name": "Natt 2 & 3", "cmt": null, "desc": "Örebro kommun, Örebro län, Sverige", "src": null, "link1_href": null, "link1_text": null, "link1_type": null, "link2_href": null, "link2_text": null, "link2_type": null, "sym": null, "type": "15", "fix": null, "sat": null, "hdop": null, "vdop": null, "pdop": null, "ageofdgpsdata": null, "dgpsid": null }, "geometry": { "type": "Point", "coordinates": [ 14.8942125, 59.3124399, 0.0 ] } }
+]
+}
