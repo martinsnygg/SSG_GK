@@ -2,7 +2,7 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8" />
-  <title>Karta med Bivvy och egen ikon</title>
+  <title>Karta med bivvy, led och etappikoner</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
   <style>
@@ -13,16 +13,17 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Ladda GeoJSON från GitHub raw
+    // Initiera karta
+    const map = L.map('map').setView([59.32, 14.90], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 1. Visa Bivvy-punkter med tent-ikon
     fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Bivvy.geojson')
       .then(res => res.json())
       .then(geojsonData => {
-        const map = L.map('map').setView([59.32, 14.90], 11);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
         L.geoJSON(geojsonData, {
           pointToLayer: function(feature, latlng) {
             if (feature.properties && feature.properties.icon) {
@@ -35,6 +36,50 @@
               });
             }
             return L.marker(latlng);
+          },
+          onEachFeature: function(feature, layer) {
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(feature.properties.name);
+            }
+          }
+        }).addTo(map);
+      });
+
+    // 2. Visa led (LineString) i SÖS_GK_Barmark2.geojson
+    fetch('https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/SÖS_GK_Barmark2.geojson')
+      .then(res => res.json())
+      .then(geojsonData => {
+        // Lägg till linjer (etapper)
+        L.geoJSON(geojsonData, {
+          filter: function(feature) {
+            return feature.geometry.type === "LineString";
+          },
+          style: function(feature) {
+            // Anpassa färg/tjocklek om du vill särskilja etapper
+            return { color: "#2196F3", weight: 5 };
+          }
+        }).addTo(map);
+
+        // Lägg till start/stopp-markörer för etapper
+        L.geoJSON(geojsonData, {
+          filter: function(feature) {
+            return feature.geometry.type === "Point" &&
+                   feature.properties && (feature.properties.etapp_typ === "start" || feature.properties.etapp_typ === "stopp");
+          },
+          pointToLayer: function(feature, latlng) {
+            let iconUrl = "";
+            if (feature.properties.etapp_typ === "start") {
+              iconUrl = "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/Start Of Route_4.png";
+            } else if (feature.properties.etapp_typ === "stopp") {
+              iconUrl = "https://raw.githubusercontent.com/martinsnygg/SSG_GK/main/End Of Route_4.png";
+            }
+            return L.marker(latlng, {
+              icon: L.icon({
+                iconUrl: iconUrl,
+                iconSize: [32, 32],
+                iconAnchor: [16, 32]
+              })
+            });
           },
           onEachFeature: function(feature, layer) {
             if (feature.properties && feature.properties.name) {
