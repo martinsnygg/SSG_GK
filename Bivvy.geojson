@@ -5,8 +5,8 @@
     {
       "type": "Feature",
       "properties": {
-        "ele": null,
-        "time": "2025-07-14T07:52:43.831Z",
+        "ele": 224m,
+        "time": "2025-07-01T07:52:43.831Z",
         "magvar": null,
         "geoidheight": null,
         "name": "Natt 1",
@@ -19,8 +19,8 @@
     {
       "type": "Feature",
       "properties": {
-        "ele": null,
-        "time": "2025-07-14T07:51:08.813Z",
+        "ele": 239m,
+        "time": "2025-07-02T07:51:08.813Z",
         "magvar": null,
         "geoidheight": null,
         "name": "Natt 2 & 3",
